@@ -24,12 +24,13 @@ var (
 func init() {
 	flag.StringVar(&broker, "broker", "127.0.0.1:9200", "kafka brokers.")
 	flag.StringVar(&topic, "topic", "k8s-event", "kafka k8s-event topic.")
-	flag.StringVar(&kubeconfig, "kubeconfig", "~/.kube/config", "k8s kubeconfig file path")
+	flag.StringVar(&kubeconfig, "kubeconfig", "/root/.kube/config", "k8s kubeconfig file path")
 	flag.Parse()
 	fmt.Println("kafka brokers: ", broker)
 }
 
 func loadConfig() kubernetes.Interface {
+	fmt.Println("kube config : ", kubeconfig)
 	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
 	if err != nil {
 		panic(err.Error())
